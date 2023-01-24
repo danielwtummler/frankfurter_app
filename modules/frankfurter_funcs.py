@@ -28,14 +28,20 @@ def currency_evolution(currency, year):
     moneda = [data["rates"][fecha][currency] for fecha in data["rates"].keys()]
 
     df = pd.DataFrame(data    = np.array([fechas, moneda]).T,
-                       columns = ["date", "currency"])
+                      columns = ["date", "currency"])
     
     return df
 
-def get_all_currencies():
+# def get_all_currencies():
 
-    data = requests.get(url = "https://api.frankfurter.app/currencies").json()
+    # data = requests.get(url = "https://api.frankfurter.app/currencies").json()
 
-    data = [f"{k} - {v}" for k, v in data.items() if k != "EUR"]
+    # data = [f"{k} - {v}" for k, v in data.items() if k != "EUR"]
 
-    return data
+    # with open(file = "currencias.pkl", mode = "bw") as file:
+    #     pickle.dump(obj = data, file = file)
+
+    # with open(file = "currencies.pkl", mode = "br") as file:
+    #     data = pickle.load(file = file)
+
+    # return currencies

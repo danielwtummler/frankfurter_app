@@ -4,6 +4,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.figure_factory as ff
 import modules.frankfurter_funcs as ffunc
+from modules.currencies import currencies
 from datetime import datetime
 
 def main():
@@ -11,8 +12,6 @@ def main():
     st.title("Frankfurter API App.")
     st.markdown("""Simple script that calls the `Frankfurter API` and shows the EUR's evolution compared
                    to another currency over a selected year.""")
-
-    currencies = ffunc.get_all_currencies()
 
     currency = st.selectbox(label = "Select Currency", options = currencies)
 
@@ -35,6 +34,10 @@ def main():
                        x          = "date",
                        y          = currency,
                        title      = f"{currency} - EUR Relationship")
+    # line_fig.add_hline(y = 1, line_dash = "dash", line_color = "red", line_width = 0.5)
+    line_fig.add_hline(y = df[currency].mean(), line_dash = "dash", line_color = "green", line_width = 1,
+                       annotation_position = "top left",  annotation_text = "mean")
+    line_fig.add_scatter()
 
     hist_fig = px.histogram(data_frame = df, x = currency,  nbins = 50, opacity = 0.8)
 
@@ -61,6 +64,5 @@ def main():
     st.plotly_chart(hist_fig2)
     st.plotly_chart(box_fig2)
 
-    st.write("")
 if __name__ == "__main__":
     main()
